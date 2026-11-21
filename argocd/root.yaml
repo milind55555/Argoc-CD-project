@@ -1,0 +1,19 @@
+# The ONLY file you apply with kubectl. Argo CD then manages everything else from Git.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/jaiswaladi246/shack-gitops.git
+    targetRevision: main
+    path: argocd-apps            # every YAML in this folder becomes a child
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd            # child Applications live in the argocd namespace
+  syncPolicy:
+    automated:
+      prune: true                # file removed from Git -> child app removed
+      selfHeal: true

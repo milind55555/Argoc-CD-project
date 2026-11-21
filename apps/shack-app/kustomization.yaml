@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - deployment.yaml
+  - service.yaml
+images:
+  - name: ghcr.io/jaiswaladi246/shack-app
+    newTag: sha-57bff2e # GitHub Actions rewrites this line on every release

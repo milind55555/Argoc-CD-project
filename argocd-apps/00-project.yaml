@@ -1,0 +1,24 @@
+# AppProject: the guard rails for every child app (which repo, which namespaces).
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: platform
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-2"   # created before any child app
+spec:
+  description: Apps managed by the shack-gitops root app
+  sourceRepos:
+    - https://github.com/jaiswaladi246/shack-gitops.git
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: cache
+    - server: https://kubernetes.default.svc
+      namespace: shack
+    - server: https://kubernetes.default.svc
+      namespace: web
+    - server: https://kubernetes.default.svc
+      namespace: tools
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace                    # lets CreateNamespace=true work

@@ -1,0 +1,25 @@
+# Child application: Redis cache. Wave 0, comes up first.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cache
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io   # delete this app -> delete its resources too
+spec:
+  project: platform
+  source:
+    repoURL: https://github.com/jaiswaladi246/shack-gitops.git
+    targetRevision: main
+    path: apps/cache
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cache
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

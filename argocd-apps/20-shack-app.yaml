@@ -1,0 +1,25 @@
+# Child application: shack-app, our own app. GitHub Actions builds its image and bumps the tag in apps/shack-app. Wave 1, after the cache.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: shack-app
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io   # delete this app -> delete its resources too
+spec:
+  project: platform
+  source:
+    repoURL: https://github.com/jaiswaladi246/shack-gitops.git
+    targetRevision: main
+    path: apps/shack-app
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: shack
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

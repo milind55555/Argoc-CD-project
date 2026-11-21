@@ -1,0 +1,25 @@
+# Child application: nginx web page. Wave 2, last.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: web
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io   # delete this app -> delete its resources too
+spec:
+  project: platform
+  source:
+    repoURL: https://github.com/jaiswaladi246/shack-gitops.git
+    targetRevision: main
+    path: apps/web
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: web
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

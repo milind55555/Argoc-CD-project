@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-page
+data:
+  index.html: |
+    <!doctype html><html><head><meta charset="utf-8"><title>App of Apps</title>
+    <style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0B2545;color:#fff;font-family:Segoe UI,Arial,sans-serif}
+    .c{text-align:center}h1{font-size:56px;margin:0 0 10px}p{font-size:22px;color:#CBD5E1}
+    a{display:inline-block;margin:10px;padding:12px 22px;border-radius:12px;background:#2563EB;color:#fff;text-decoration:none;font-weight:600}</style></head>
+    <body><div class="c"><p>DevOps Shack · GitOps</p><h1>App of Apps is working</h1>
+    <p>This page (web) was deployed by a child app. One root app manages all of them, including shack-app, built by GitHub Actions.</p>
+    <a href="http://localhost:8082">shack-app on :8082</a><a href="http://localhost:8083">Tools on :8083</a></div></body></html>
