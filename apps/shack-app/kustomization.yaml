@@ -5,4 +5,4 @@ resources:
   - service.yaml
 images:
   - name: ghcr.io/jaiswaladi246/shack-app
-    newTag: sha-57bff2e # GitHub Actions rewrites this line on every release
+    newTag: sha-bd180a0 # GitHub Actions rewrites this line on every release
